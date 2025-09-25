@@ -1773,9 +1773,10 @@ end)
 -- Aba de Créditos
 local CreditsTab = window:AddTab("Créditos")
 
--- Labels
-CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
-CreditsTab:AddLabel("Script Pago!").TextSize = 20d)
+CreditsTab:AddLabel("Desenvolvido por itsbleedingyz").TextSize = 25
+CreditsTab:AddLabel("Contato:").TextSize = 20
+CreditsTab:AddLabel("Discord: itsbleedingyz").TextSize = 20
+]====]
 
 --// Funções para abrir
 local function openEnglish()
