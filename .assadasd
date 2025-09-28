@@ -4,44 +4,13 @@ local Player = Players.LocalPlayer
 
 local whitelistURL = "https://raw.githubusercontent.com/Snowbytes-cloud/wl/refs/heads/main/wl"
 
--- URL da whitelist
-local whitelistURL = "https://raw.githubusercontent.com/Snowbytes-cloud/wl/refs/heads/main/wl"
-
--- Tenta pegar a whitelist como JSON
-local success, response = pcall(function()
-    return game:HttpGet(whitelistURL)
+local success, whitelist = pcall(function()
+    return loadstring(game:HttpGet(whitelistURL, true))()
 end)
 
-if not success then
-    warn("Não foi possível carregar a whitelist. Negando acesso.")
+if not success or type(whitelist) ~= "table" then
+    warn("Não foi possível carregar a whitelist ou formato inválido. Negando acesso.")
     Player:Kick("Erro ao carregar whitelist.")
-    return
-end
-
--- Decodifica JSON em tabela
-local HttpService = game:GetService("HttpService")
-local whitelist
-pcall(function()
-    whitelist = HttpService:JSONDecode(response)
-end)
-
-if type(whitelist) ~= "table" then
-    warn("Formato inválido da whitelist. Negando acesso.")
-    Player:Kick("Erro ao ler whitelist.")
-    return
-end
-
--- Verifica se o player está na whitelist
-local allowed = false
-for _, name in ipairs(whitelist) do
-    if name == Player.Name then
-        allowed = true
-        break
-    end
-end
-
-if not allowed then
-    Player:Kick("Você não está autorizado para usar esse Script.")
     return
 end
 
@@ -123,8 +92,7 @@ end)
 local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
-
-local window = library:AddWindow("Snow paid | Farming", {
+local window = library:AddWindow("Empty hub | Farming", {
     main_color = mainColor,
     min_size = Vector2.new(700, 650),
     can_resize = false,
@@ -679,7 +647,7 @@ end)
 
 local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/556ii/zzzzzzizzzzzz/d629b507937bc6e58367239d2f4e5e6cc92e1793/iiiiii19", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
 
 local window = library:AddWindow("Empty Hub | Farming", {
     main_color = mainColor,
@@ -1236,7 +1204,7 @@ end)
 
 local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/556ii/zzzzzzizzzzzz/d629b507937bc6e58367239d2f4e5e6cc92e1793/iiiiii19", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
 
 local window = library:AddWindow("Empty Hub | Farming", {
     main_color = mainColor,
@@ -1770,12 +1738,12 @@ end)
 -- ================================
 -- Credits Tab
 -- ================================
--- Aba de Créditos
 local CreditsTab = window:AddTab("Créditos")
 
-CreditsTab:AddLabel("Desenvolvido por itsbleedingyz").TextSize = 25
+CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
 CreditsTab:AddLabel("Contato:").TextSize = 20
-CreditsTab:AddLabel("Discord: itsbleedingyz").TextSize = 20
+CreditsTab:AddLabel("Discord: matheustxx").TextSize = 20
+CreditsTab:AddLabel("youtube: snow01").TextSize = 20
 ]====]
 
 --// Funções para abrir
