@@ -679,37 +679,33 @@ for _, rock in ipairs(rocks) do
     end)
 end
 
+
+
 local CreditsTab = window:AddTab("Credits")
 
-CreditsTab:AddLabel("Developed by itsbleedingyz").TextSize = 25
-CreditsTab:AddLabel("Contact:").TextSize = 20
-CreditsTab:AddLabel("Discord: itsbleedingyz").TextSize = 20
-]====]
+CreditsTab:AddLabel("Developed by: snow").TextSize = 25
+CreditsTab:AddLabel("Desenvolvido por: snow").TextSize = 25
 
-local spanishScript = [====[
-local Players = game:GetService("Players")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local VirtualUser = game:GetService("VirtualUser")
-local Player = Players.LocalPlayer
-local muscleEvent = Player:WaitForChild("muscleEvent", 5)
-
-local usercolorsURL = "https://raw.githubusercontent.com/lkjhg969/ffdsf/refs/heads/main/usc.lua"
-
-local success, userColors = pcall(function()
-    return loadstring(game:HttpGet(usercolorsURL, true))()
+CreditsTab:AddButton("Join Discord", function()
+    setclipboard("https://discord.gg/Kw5avTFZ8A")
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Zenith Store",
+        Text = "Discord link copied! / Link do Discord copiado!",
+        Duration = 5
+    })
 end)
 
-local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
-
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
-
-local window = library:AddWindow("Snow Paid | Farming", {
-    main_color = mainColor,
-    min_size = Vector2.new(700, 650),
-    can_resize = false,
-})
-
+CreditsTab:AddButton("Visit YouTube", function()
+    setclipboard("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Zenith Store",
+        Text = "Opening YouTube channel... / Abrindo canal no YouTube...",
+        Duration = 5
+    })
+    pcall(function()
+        game:HttpGet("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
+    end)
+end)
 -- Anti AFK Créditos Myers
 local antiAFKConnection
 local function setupAntiAFK()
@@ -1291,37 +1287,34 @@ for _, rock in ipairs(rocks) do
     end)
 end
 
+
+
+
+
 local CreditsTab = window:AddTab("Créditos")
 
-CreditsTab:AddLabel("Desarrollado por itsbleedingyz").TextSize = 25
-CreditsTab:AddLabel("Contacto:").TextSize = 20
-CreditsTab:AddLabel("Discord: itsbleedingyz").TextSize = 20
-]====]
+CreditsTab:AddLabel("Desenvolvido por: snow").TextSize = 25
 
-local portugueseScript = [====[
-local Players = game:GetService("Players")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local VirtualUser = game:GetService("VirtualUser")
-local Player = Players.LocalPlayer
-local muscleEvent = Player:WaitForChild("muscleEvent", 5)
-
-local usercolorsURL = "https://raw.githubusercontent.com/lkjhg969/ffdsf/refs/heads/main/usc.lua"
-
-local success, userColors = pcall(function()
-    return loadstring(game:HttpGet(usercolorsURL, true))()
+CreditsTab:AddButton("Entrar no Discord", function()
+    setclipboard("https://discord.gg/Kw5avTFZ8A")
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Zenith Store",
+        Text = "Link do Discord copiado!",
+        Duration = 5
+    })
 end)
 
-local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
-
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
-
-local window = library:AddWindow("Snow Paid | Farming", {
-    main_color = mainColor,
-    min_size = Vector2.new(700, 650),
-    can_resize = false,
-})
-
+CreditsTab:AddButton("Visitar YouTube", function()
+    setclipboard("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Zenith Store",
+        Text = "Abrindo canal no YouTube...",
+        Duration = 5
+    })
+    pcall(function()
+        game:HttpGet("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
+    end)
+end)
 -- Anti AFK Credits Myers
 local antiAFKConnection
 local function setupAntiAFK()
