@@ -692,33 +692,49 @@ end
     end)
 end
 
+local CreditsTab = window:AddTab("Créditos")
 
+CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
+CreditsTab:AddLabel("Contato:").TextSize = 20
 
-local CreditsTab = window:AddTab("Credits")
+-- Botão para copiar o Discord
+CreditsTab:AddButton({
+    Text = "Discord: clique aqui para copiar",
+    Func = function()
+        setclipboard("https://discord.gg/Kw5avTFZ8A")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Discord",
+            Text = "Link copiado para a área de transferência!",
+            Duration = 5
+        })
+    end,
+})
+]====]
 
-CreditsTab:AddLabel("Developed by: snow").TextSize = 25
-CreditsTab:AddLabel("Desenvolvido por: snow").TextSize = 25
+local spanishScript = [====[
+local Players = game:GetService("Players")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualUser = game:GetService("VirtualUser")
+local Player = Players.LocalPlayer
+local muscleEvent = Player:WaitForChild("muscleEvent", 5)
 
-CreditsTab:AddButton("Join Discord", function()
-    setclipboard("https://discord.gg/Kw5avTFZ8A")
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Zenith Store",
-        Text = "Discord link copied! / Link do Discord copiado!",
-        Duration = 5
-    })
+local usercolorsURL = "https://raw.githubusercontent.com/lkjhg969/ffdsf/refs/heads/main/usc.lua"
+
+local success, userColors = pcall(function()
+    return loadstring(game:HttpGet(usercolorsURL, true))()
 end)
 
-CreditsTab:AddButton("Visit YouTube", function()
-    setclipboard("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Zenith Store",
-        Text = "Opening YouTube channel... / Abrindo canal no YouTube...",
-        Duration = 5
-    })
-    pcall(function()
-        game:HttpGet("https://youtube.com/@snowsplezz?si=payvBNEtQIA9zWc9")
-    end)
-end)
+local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
+
+local window = library:AddWindow("Snow Paid | Farming", {
+    main_color = mainColor,
+    min_size = Vector2.new(700, 650),
+    can_resize = false,
+})
+
 -- Anti AFK Créditos Myers
 local antiAFKConnection
 local function setupAntiAFK()
@@ -1313,9 +1329,642 @@ end
     end)
 end
 
+local CreditsTab = window:AddTab("Créditos")
 
+CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
+CreditsTab:AddLabel("Contato:").TextSize = 20
 
+-- Botão para copiar o Discord
+CreditsTab:AddButton({
+    Text = "Discord: clique aqui para copiar",
+    Func = function()
+        setclipboard("https://discord.gg/Kw5avTFZ8A")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Discord",
+            Text = "Link copiado para a área de transferência!",
+            Duration = 5
+        })
+    end,
+})
+]====]
 
+local portugueseScript = [====[
+local Players = game:GetService("Players")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualUser = game:GetService("VirtualUser")
+local Player = Players.LocalPlayer
+local muscleEvent = Player:WaitForChild("muscleEvent", 5)
+
+local usercolorsURL = "https://raw.githubusercontent.com/lkjhg969/ffdsf/refs/heads/main/usc.lua"
+
+local success, userColors = pcall(function()
+    return loadstring(game:HttpGet(usercolorsURL, true))()
+end)
+
+local mainColor = (success and userColors[Player.Name]) or Color3.fromRGB(25, 25, 122)
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Snowbytes-cloud/suez/refs/heads/main/Suez"))()
+
+local window = library:AddWindow("Snow Paid | Farming", {
+    main_color = mainColor,
+    min_size = Vector2.new(700, 650),
+    can_resize = false,
+})
+
+-- Anti AFK Credits Myers
+local antiAFKConnection
+local function setupAntiAFK()
+    if antiAFKConnection then
+        antiAFKConnection:Disconnect()
+    end
+    antiAFKConnection = Player.Idled:Connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end)
+end
+setupAntiAFK()
+
+-- Remove Portals Credits Myers
+local function removePortals()
+    for _, portal in pairs(game:GetDescendants()) do
+        if portal.Name == "RobloxForwardPortals" then
+            portal:Destroy()
+        end
+    end
+    if _G.AdRemovalConnection then
+        _G.AdRemovalConnection:Disconnect()
+    end
+    _G.AdRemovalConnection = game.DescendantAdded:Connect(function(descendant)
+        if descendant.Name == "RobloxForwardPortals" then
+            descendant:Destroy()
+        end
+    end)
+end
+removePortals()
+
+-- Blocked Frames Credits Myers
+local blockedFrames = {
+    "strengthFrame",
+    "durabilityFrame",
+    "agilityFrame",
+    "evilKarmaFrame",
+    "goodKarmaFrame",
+}
+for _, name in ipairs(blockedFrames) do
+    local frame = ReplicatedStorage:FindFirstChild(name)
+    if frame and frame:IsA("GuiObject") then
+        frame.Visible = false
+    end
+end
+ReplicatedStorage.ChildAdded:Connect(function(child)
+    if table.find(blockedFrames, child.Name) and child:IsA("GuiObject") then
+        child.Visible = false
+    end
+end)
+
+-- Farming Tab Credits Myers
+local FarmingTab = window:AddTab("Farm Rápido")
+
+local totalReps = 20
+local threadCount = 1
+local durationSeconds = 2
+local pingLimit = 350
+local repsPerTick = 1
+
+local isFarmingActive = false
+local farmingThreads = {}
+
+local function getPing()
+    local stats = game:GetService("Stats")
+    local perfStats = stats:FindFirstChild("PerformanceStats")
+    local pingStat = perfStats and perfStats:FindFirstChild("Ping")
+    return pingStat and pingStat:GetValue() or 0
+end
+
+local function updateRepsPerTick()
+    local ticksPerSecond = 30
+    local totalTicks = durationSeconds * ticksPerSecond
+    local repsPerThread = totalReps / threadCount
+    repsPerTick = repsPerThread / totalTicks
+    if repsPerTick < 1 then
+        repsPerTick = 1
+    else
+        repsPerTick = math.floor(repsPerTick)
+    end
+end
+updateRepsPerTick()
+
+local function repWorker(duration)
+    local startTime = os.clock()
+    while os.clock() - startTime < duration and isFarmingActive do
+        for i = 1, repsPerTick do
+            muscleEvent:FireServer("rep")
+        end
+        task.wait()
+    end
+end
+
+local function startFarming()
+    if isFarmingActive then return end
+    isFarmingActive = true
+    farmingThreads = {}
+
+    for _ = 1, threadCount do
+        local thread = task.spawn(function()
+            while isFarmingActive do
+                if getPing() < pingLimit then
+                    repWorker(durationSeconds)
+                else
+                    warn("high ping > " .. pingLimit)
+                    repeat task.wait(1) until getPing() < pingLimit or not isFarmingActive
+                end
+                while getPing() >= pingLimit and isFarmingActive do
+                    task.wait(1)
+                end
+            end
+        end)
+        table.insert(farmingThreads, thread)
+    end
+end
+
+local function stopFarming()
+    isFarmingActive = false
+    farmingThreads = {}
+end
+
+FarmingTab:AddTextBox("Total de Reps", function(value)
+    local num = tonumber(value)
+    if num and num > 0 then
+        totalReps = num
+        updateRepsPerTick()
+    end
+end, { placeholder = tostring(totalReps) })
+
+FarmingTab:AddTextBox("Tópicos", function(value)
+    local num = tonumber(value)
+    if num and num > 0 then
+        threadCount = math.floor(num)
+        updateRepsPerTick()
+    end
+end, { placeholder = tostring(threadCount) })
+
+FarmingTab:AddTextBox("Segundos", function(value)
+    local num = tonumber(value)
+    if num and num > 0 then
+        durationSeconds = num
+        updateRepsPerTick()
+    end
+end, { placeholder = tostring(durationSeconds) })
+
+FarmingTab:AddSwitch("Começar a subir dura/Força", function(state)
+    if state then
+        startFarming()
+    else
+        stopFarming()
+    end
+end)
+
+-- Auto Egg & Shake Credits Myers
+local function unequipPets()
+    for _, folder in pairs(Player.petsFolder:GetChildren()) do
+        if folder:IsA("Folder") then
+            for _, pet in pairs(folder:GetChildren()) do
+                ReplicatedStorage.rEvents.equipPetEvent:FireServer("unequipPet", pet)
+            end
+        end
+    end
+    task.wait(0.1)
+end
+
+local function equipPetsByName(name)
+    unequipPets()
+    task.wait(0.01)
+    for _, pet in pairs(Player.petsFolder.Unique:GetChildren()) do
+        if pet.Name == name then
+            ReplicatedStorage.rEvents.equipPetEvent:FireServer("equipPet", pet)
+        end
+    end
+end
+
+local function activateProteinEgg()
+    local tool = Player.Character:FindFirstChild("Protein Egg") or Player.Backpack:FindFirstChild("Protein Egg")
+    if tool then
+        muscleEvent:FireServer("proteinEgg", tool)
+    end
+end
+
+local runningEgg = false
+task.spawn(function()
+    while true do
+        if runningEgg then
+            activateProteinEgg()
+            task.wait(1800)
+        else
+            task.wait(1)
+        end
+    end
+end)
+FarmingTab:AddSwitch("Auto Ovo", function(state)
+    runningEgg = state
+    if state then activateProteinEgg() end
+end):Set(false)
+
+local function activateShake()
+    local tool = Player.Character:FindFirstChild("Tropical Shake") or Player.Backpack:FindFirstChild("Tropical Shake")
+    if tool then
+        muscleEvent:FireServer("tropicalShake", tool)
+    end
+end
+
+local runningShake = false
+task.spawn(function()
+    while true do
+        if runningShake then
+            activateShake()
+            task.wait(900)
+        else
+            task.wait(1)
+        end
+    end
+end)
+FarmingTab:AddSwitch("Auto bebida", function(state)
+    runningShake = state
+    if state then activateShake() end
+end):Set(false)
+
+-- Spin Fortune Wheel Credits Myers
+FarmingTab:AddSwitch("Girar Roleta", function(bool)
+    _G.AutoSpinWheel = bool
+    if bool then
+        spawn(function()
+            while _G.AutoSpinWheel and wait(1) do
+                game:GetService("ReplicatedStorage").rEvents.openFortuneWheelRemote:InvokeServer("openFortuneWheel", game:GetService("ReplicatedStorage").fortuneWheelChances["Fortune Wheel"])
+            end
+        end)
+    end
+end)
+
+-- Jungle Squat Credits Myers
+FarmingTab:AddButton("Peso de agachamento Jungle",function()
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    hrp.CFrame = CFrame.new(-8371.43359375, 6.79806327, 2858.88525390)
+    task.wait(0.2)
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+    task.wait(0.05)
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+end)
+
+-- Anti Lag Credits Myers
+FarmingTab:AddButton("Anti Lag", function()
+    local playerGui = Player:WaitForChild("PlayerGui")
+    local lighting = game:GetService("Lighting")
+    for _, gui in pairs(playerGui:GetChildren()) do if gui:IsA("ScreenGui") then gui:Destroy() end end
+    for _, obj in pairs(workspace:GetDescendants()) do if obj:IsA("ParticleEmitter") or obj:IsA("PointLight") or obj:IsA("SpotLight") or obj:IsA("SurfaceLight") then obj:Destroy() end end
+    local darkSky = Instance.new("Sky")
+    darkSky.Name = "DarkSky"
+    darkSky.SkyboxBk = "rbxassetid://0"
+    darkSky.SkyboxDn = "rbxassetid://0"
+    darkSky.SkyboxFt = "rbxassetid://0"
+    darkSky.SkyboxLf = "rbxassetid://0"
+    darkSky.SkyboxRt = "rbxassetid://0"
+    darkSky.SkyboxUp = "rbxassetid://0"
+    darkSky.Parent = lighting
+    lighting.Brightness = 0
+    lighting.ClockTime = 0
+    lighting.OutdoorAmbient = Color3.new(0,0,0)
+    lighting.Ambient = Color3.new(0,0,0)
+    lighting.FogColor = Color3.new(0,0,0)
+    lighting.FogEnd = 100
+end)
+
+-- Equip Swift Samurai Credits Myers
+FarmingTab:AddButton("Equip Swift Samurai", function()
+    unequipPets()
+    equipPetsByName("Swift Samurai")
+end)
+
+-- Stats Tab Credits Myers
+local statsTab = window:AddTab("Stats")
+
+local leaderstats = Player:WaitForChild("leaderstats")
+local strengthStat = leaderstats:WaitForChild("Strength")
+local rebirthsStat = leaderstats:WaitForChild("Rebirths")
+local durabilityStat = Player:WaitForChild("Durability")
+local killsStat = leaderstats:WaitForChild("Kills")
+local agilityStat = Player:WaitForChild("Agility")
+local evilKarmaStat = Player:WaitForChild("evilKarma")
+local goodKarmaStat = Player:WaitForChild("goodKarma")
+local brawlsStat = leaderstats:WaitForChild("Brawls")
+
+local function AbbrevNumber(num)
+    local abbrev = {"", "K", "M", "B", "T", "Qa", "Qi"}
+    local i = 1
+    while num >= 1000 and i < #abbrev do
+        num = num / 1000
+        i = i + 1
+    end
+    return string.format("%.2f%s", num, abbrev[i])
+end
+
+-- Credits Myers
+statsTab:AddLabel("⏱️ Sessão Statisticas").TextSize = 30
+local stopwatchLabel = statsTab:AddLabel("Sessão Tempo: 0d 0h 0m 0s"); stopwatchLabel.TextSize = 20
+local customTimerLabel = statsTab:AddLabel("Tempo Personalizado: Não iniciado"); customTimerLabel.TextSize = 20
+
+local isCustomRunning, customStart, customElapsed = false, 0, 0
+
+statsTab:AddButton("Começar/Parar Tempo Personalizado", function()
+    if not isCustomRunning then
+        isCustomRunning = true
+        customStart = tick() - customElapsed
+    else
+        isCustomRunning = false
+        customElapsed = tick() - customStart
+    end
+end)
+
+statsTab:AddButton("Resetar Tempo Personalizado", function()
+    isCustomRunning = false
+    customStart, customElapsed = 0, 0
+    customTimerLabel.Text = "Tempo Personalizado: Não iniciado"
+end)
+
+local resetSession = false
+statsTab:AddButton("Resetar Sessão de Status", function()
+    resetSession = true
+end)
+
+statsTab:AddLabel("------------------").TextSize = 14
+statsTab:AddLabel("Status Projetado").TextSize = 30
+local projectedStrengthLabel = statsTab:AddLabel("Ritmo de Durabilidade: -"); projectedStrengthLabel.TextSize = 20
+local projectedDurabilityLabel = statsTab:AddLabel("Ritmo de Durabilidade: -"); projectedDurabilityLabel.TextSize = 20
+local projectedRebirthsLabel = statsTab:AddLabel("Ritmo de Renascimento: -"); projectedRebirthsLabel.TextSize = 20
+
+statsTab:AddLabel("------------------").TextSize = 14
+statsTab:AddLabel("📊 Status").TextSize = 30
+local strengthLabel = statsTab:AddLabel("Força: -"); strengthLabel.TextSize = 20
+local rebirthsLabel = statsTab:AddLabel("Renascimento: -"); rebirthsLabel.TextSize = 20
+local killsLabel = statsTab:AddLabel("Mortes: -"); killsLabel.TextSize = 20
+local brawlsLabel = statsTab:AddLabel("Lutas: -"); brawlsLabel.TextSize = 20
+
+statsTab:AddLabel("------------------").TextSize = 14
+statsTab:AddLabel("💪 Status").TextSize = 30
+local goodKarmaLabel = statsTab:AddLabel("Karma Mal: -"); goodKarmaLabel.TextSize = 20
+local evilKarmaLabel = statsTab:AddLabel("Karma Mal: -"); evilKarmaLabel.TextSize = 20
+local durabilityLabel = statsTab:AddLabel("Durabilidade: -"); durabilityLabel.TextSize = 20
+local agilityLabel = statsTab:AddLabel("Agilidade: -"); agilityLabel.TextSize = 20
+
+-- Credits Myers
+local startTime = tick()
+local initialStrength = strengthStat.Value
+local initialDurability = durabilityStat.Value
+local initialRebirths = rebirthsStat.Value
+local initialKills = killsStat.Value
+local initialAgility = agilityStat.Value
+local initialEvilKarma = evilKarmaStat.Value
+local initialGoodKarma = goodKarmaStat.Value
+local initialBrawls = brawlsStat.Value
+
+-- Credits Myers
+task.spawn(function()
+    local lastUpdate = 0
+    while task.wait(0.2) do
+        local elapsedTime = tick() - startTime
+        local days = math.floor(elapsedTime / (24 * 3600))
+        local hours = math.floor((elapsedTime % (24 * 3600)) / 3600)
+        local minutes = math.floor((elapsedTime % 3600) / 60)
+        local seconds = math.floor(elapsedTime % 60)
+        stopwatchLabel.Text = string.format("Sessão de Tempo: %dd %dh %dm %ds", days, hours, minutes, seconds)
+
+        if isCustomRunning then customElapsed = tick() - customStart end
+        if customElapsed > 0 then
+            local d = math.floor(customElapsed / (24 * 3600))
+            local h = math.floor((customElapsed % (24 * 3600)) / 3600)
+            local m = math.floor((customElapsed % 3600) / 60)
+            local s = math.floor(customElapsed % 60)
+            customTimerLabel.Text = string.format("Tempo Personalizado: %dd %dh %dm %ds", d, h, m, s)
+        end
+
+        if resetSession then
+            startTime = tick()
+            initialStrength = strengthStat.Value
+            initialDurability = durabilityStat.Value
+            initialRebirths = rebirthsStat.Value
+            initialKills = killsStat.Value
+            initialAgility = agilityStat.Value
+            initialEvilKarma = evilKarmaStat.Value
+            initialGoodKarma = goodKarmaStat.Value
+            initialBrawls = brawlsStat.Value
+            resetSession = false
+        end
+
+        local cStr, cReb, cDur = strengthStat.Value, rebirthsStat.Value, durabilityStat.Value
+        local cKills, cAgi, cEvil, cGood, cBrawl = killsStat.Value, agilityStat.Value, evilKarmaStat.Value, goodKarmaStat.Value, brawlsStat.Value
+
+        local dStr, dDur, dReb = cStr - initialStrength, cDur - initialDurability, cReb - initialRebirths
+        local dKills, dAgi, dEvil, dGood, dBrawl = cKills - initialKills, cAgi - initialAgility, cEvil - initialEvilKarma, cGood - initialGoodKarma, cBrawl - initialBrawls
+
+        strengthLabel.Text = "Força: " .. AbbrevNumber(cStr) .. " | +" .. AbbrevNumber(dStr)
+        rebirthsLabel.Text = "Renascimento: " .. AbbrevNumber(cReb) .. " | +" .. AbbrevNumber(dReb)
+        killsLabel.Text = "Mortes: " .. AbbrevNumber(cKills) .. " | +" .. AbbrevNumber(dKills)
+        brawlsLabel.Text = "Lutas: " .. AbbrevNumber(cBrawl) .. " | +" .. AbbrevNumber(dBrawl)
+        goodKarmaLabel.Text = "Karma Bom: " .. AbbrevNumber(cGood) .. " | +" .. AbbrevNumber(dGood)
+        evilKarmaLabel.Text = "Karma Mal: " .. AbbrevNumber(cEvil) .. " | +" .. AbbrevNumber(dEvil)
+        durabilityLabel.Text = "Durabilidade: " .. AbbrevNumber(cDur) .. " | +" .. AbbrevNumber(dDur)
+        agilityLabel.Text = "Agilidade: " .. AbbrevNumber(cAgi) .. " | +" .. AbbrevNumber(dAgi)
+
+        if tick() - lastUpdate >= 6 then
+            lastUpdate = tick()
+            local sSec, dSec, rSec = dStr / elapsedTime, dDur / elapsedTime, dReb / elapsedTime
+            local h, d, m = 3600, 86400, 2592000
+            projectedStrengthLabel.Text = "Ritmo de Força: " .. AbbrevNumber(math.floor(sSec*h)) .. "/h | " .. AbbrevNumber(math.floor(sSec*d)) .. "/d"
+            projectedDurabilityLabel.Text = "Ritmo de Durabilidade: " .. AbbrevNumber(math.floor(dSec*h)) .. "/h | " .. AbbrevNumber(math.floor(dSec*d)) .. "/d"
+            projectedRebirthsLabel.Text = "Ritmo de Renascimento: " .. AbbrevNumber(math.floor(rSec*h)) .. "/h | " .. AbbrevNumber(math.floor(rSec*d)) .. "/d | " .. AbbrevNumber(math.floor(rSec*m)) .. "/mes"
+        end
+    end
+end)
+
+-- ================================
+-- Rebirth Farm Tab Credits Myers
+-- ================================
+local RebirthTab = window:AddTab("Farm de Rebirth")
+
+-- Fast Rebirth Switch
+RebirthTab:AddSwitch("Rebirth Super Rápido", function(bool)
+    fastRebirth = bool
+    if fastRebirth then
+        spawn(function()
+            local a = game:GetService("ReplicatedStorage")
+            local b = game:GetService("Players")
+            local c = b.LocalPlayer
+
+            local function unequipAllPets()
+                for _, folder in pairs(c.petsFolder:GetChildren()) do
+                    if folder:IsA("Folder") then
+                        for _, pet in pairs(folder:GetChildren()) do
+                            a.rEvents.equipPetEvent:FireServer("unequipPet", pet)
+                        end
+                    end
+                end
+                task.wait(0.1)
+            end
+
+            local function equipPetByName(name)
+                unequipAllPets()
+                task.wait(0.01)
+                for _, pet in pairs(c.petsFolder.Unique:GetChildren()) do
+                    if pet.Name == name then
+                        a.rEvents.equipPetEvent:FireServer("equipPet", pet)
+                    end
+                end
+            end
+
+            local function findMachine(machineName)
+                local machine = workspace.machinesFolder:FindFirstChild(machineName)
+                if not machine then
+                    for _, f in pairs(workspace:GetChildren()) do
+                        if f:IsA("Folder") and f.Name:find("machines") then
+                            machine = f:FindFirstChild(machineName)
+                            if machine then break end
+                        end
+                    end
+                end
+                return machine
+            end
+
+            local function pressE()
+                local u = game:GetService("VirtualInputManager")
+                u:SendKeyEvent(true, "E", false, game)
+                task.wait(0.1)
+                u:SendKeyEvent(false, "E", false, game)
+            end
+
+            while fastRebirth do
+                local reb = c.leaderstats.Rebirths.Value
+                local neededStr = 10000 + (5000 * reb)
+                if c.ultimatesFolder:FindFirstChild("Golden Rebirth") then
+                    neededStr = math.floor(neededStr * (1 - (c.ultimatesFolder["Golden Rebirth"].Value * 0.1)))
+                end
+
+                unequipAllPets()
+                task.wait(0.1)
+                equipPetByName("Swift Samurai")
+
+                while c.leaderstats.Strength.Value < neededStr do
+                    for _ = 1, 20 do
+                        c.muscleEvent:FireServer("rep")
+                    end
+                    task.wait()
+                end
+
+                unequipAllPets()
+                task.wait(0.1)
+                equipPetByName("Tribal Overlord")
+
+                local machine = findMachine("Jungle Bar Lift")
+                if machine and machine:FindFirstChild("interactSeat") then
+                    c.Character.HumanoidRootPart.CFrame = machine.interactSeat.CFrame * CFrame.new(0, 3, 0)
+                    repeat
+                        task.wait(0.1)
+                        pressE()
+                    until c.Character.Humanoid.Sit
+                end
+
+                local beforeRebirth = c.leaderstats.Rebirths.Value
+                repeat
+                    a.rEvents.rebirthRemote:InvokeServer("rebirthRequest")
+                    task.wait(0.1)
+                until c.leaderstats.Rebirths.Value > beforeRebirth
+            end
+        end)
+    end
+end)
+
+-- Jungle Lift Button
+RebirthTab:AddButton("Peso Jungle Lift", function()
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    local position = Vector3.new(-8653.0459, 7.32909393, 2090.00635)
+    local rotationY = -0.148272052
+    hrp.CFrame = CFrame.new(position) * CFrame.Angles(0, rotationY, 0)
+    task.wait(0.2)
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+    task.wait(0.05)
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+end)
+
+-- ================================
+-- Credits Tab
+-- ================================
+
+-- ================================
+-- Auto Rock Tab
+-- ================================
+local autoRockTab = window:AddTab("Auto Rock")
+local autoRockFolder = autoRockTab:AddFolder("Farm Rocks")
+
+function gettool()
+	for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		if v.Name == "Punch" and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+			game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+		end
+	end
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "leftHand")
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "rightHand")
+end
+
+local rocks = {
+    {name="Tiny Rock", req=0, id="Tiny Island Rock"},
+    {name="Starter Rock", req=100, id="Starter Island Rock"},
+    {name="Legend Beach Rock", req=5000, id="Legend Beach Rock"},
+    {name="Frozen Rock", req=150000, id="Frost Gym Rock"},
+    {name="Mythical Rock", req=400000, id="Mythical Gym Rock"},
+    {name="Eternal Rock", req=750000, id="Eternal Gym Rock"},
+    {name="Legend Rock", req=1000000, id="Legend Gym Rock"},
+    {name="Muscle King Rock", req=5000000, id="Muscle King Gym Rock"},
+    {name="Jungle Rock", req=10000000, id="Ancient Jungle Rock"},
+}
+
+for _, rock in ipairs(rocks) do
+    autoRockFolder:AddSwitch(rock.name, function(Value)
+        selectrock = rock.id
+        getgenv().autoFarm = Value
+        task.spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if not getgenv().autoFarm then break end
+                if game:GetService("Players").LocalPlayer.Durability.Value >= rock.req then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == rock.req 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+                            -- tentativa sem teleport, só fireServer (pode falhar se servidor exigir toque)
+local plr = game.Players.LocalPlayer
+local success, err = pcall(function()
+    -- equip ferramenta
+    gettool()
+    -- tente enviar vários punches rápidos
+    for i = 1, 6 do
+        pcall(function()
+            plr.muscleEvent:FireServer("punch", "leftHand")
+            plr.muscleEvent:FireServer("punch", "rightHand")
+        end)
+        task.wait(0.06)
+    end
+end)
+-- se quiser, logue o erro
+if not success then
+    warn("Punch remoto falhou: ", err)
+end
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end
 
 local CreditsTab = window:AddTab("Créditos")
 
@@ -1334,6 +1983,7 @@ CreditsTab:AddButton({
         })
     end,
 })
+CreditsTab:AddLabel("youtube: snow01").TextSize = 20
 ]====]
 
 --// Funções para abrir
