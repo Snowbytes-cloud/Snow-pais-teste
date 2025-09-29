@@ -694,19 +694,41 @@ end
 
 local CreditsTab = window:AddTab("Créditos")
 
-CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
-CreditsTab:AddLabel("Contato:").TextSize = 20
+CreditsTab:AddLabel("Desarrollado por Snow").TextSize = 25
+CreditsTab:AddLabel("Contacto:").TextSize = 20
 
--- Botão para copiar o Discord
+-- Botón para copiar Discord (Español)
 CreditsTab:AddButton({
-    Text = "Discord: clique aqui para copiar",
+    Text = "Discord: haz clic aquí para copiar",
     Func = function()
-        setclipboard("https://discord.gg/Kw5avTFZ8A")
+        if setclipboard then
+            setclipboard("https://discord.gg/Kw5avTFZ8A")
+        elseif toclipboard then
+            toclipboard("https://discord.gg/Kw5avTFZ8A")
+        end
         game.StarterGui:SetCore("SendNotification", {
             Title = "Discord",
-            Text = "Link copiado para a área de transferência!",
+            Text = "¡Enlace copiado al portapapeles!",
             Duration = 5
         })
+        local copiedLabel = CreditsTab:AddLabel("✅ ¡Copiado con éxito!"); copiedLabel.TextSize = 18
+        task.delay(3, function()
+            copiedLabel:Remove()
+        end)
+    end,
+})
+        local copiedLabel = CreditsTab:AddLabel("✅ Copiado com sucesso!"); copiedLabel.TextSize = 18
+        task.delay(3, function()
+            copiedLabel:Remove()
+        end)
+    end,
+})
+        CreditsTab:AddLabel("✅ ¡Copiado con éxito!").TextSize = 18
+    end,
+})
+        CreditsTab:AddLabel("✅ Copiado com sucesso!").TextSize = 18
+    end,
+})
     end,
 })
 ]====]
