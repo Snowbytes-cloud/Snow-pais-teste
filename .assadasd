@@ -624,6 +624,61 @@ end)
 -- ================================
 -- Credits Tab
 -- ================================
+
+-- ================================
+-- Auto Rock Tab
+-- ================================
+local autoRockTab = window:AddTab("Auto Rock")
+local autoRockFolder = autoRockTab:AddFolder("Farm Rocks")
+
+function gettool()
+	for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		if v.Name == "Punch" and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+			game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+		end
+	end
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "leftHand")
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "rightHand")
+end
+
+local rocks = {
+    {name="Tiny Rock", req=0, id="Tiny Island Rock"},
+    {name="Starter Rock", req=100, id="Starter Island Rock"},
+    {name="Legend Beach Rock", req=5000, id="Legend Beach Rock"},
+    {name="Frozen Rock", req=150000, id="Frost Gym Rock"},
+    {name="Mythical Rock", req=400000, id="Mythical Gym Rock"},
+    {name="Eternal Rock", req=750000, id="Eternal Gym Rock"},
+    {name="Legend Rock", req=1000000, id="Legend Gym Rock"},
+    {name="Muscle King Rock", req=5000000, id="Muscle King Gym Rock"},
+    {name="Jungle Rock", req=10000000, id="Ancient Jungle Rock"},
+}
+
+for _, rock in ipairs(rocks) do
+    autoRockFolder:AddSwitch(rock.name, function(Value)
+        selectrock = rock.id
+        getgenv().autoFarm = Value
+        task.spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if not getgenv().autoFarm then break end
+                if game:GetService("Players").LocalPlayer.Durability.Value >= rock.req then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == rock.req 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end
+
 local CreditsTab = window:AddTab("Credits")
 
 CreditsTab:AddLabel("Developed by itsbleedingyz").TextSize = 25
@@ -1181,6 +1236,61 @@ end)
 -- ================================
 -- Credits Tab
 -- ================================
+
+-- ================================
+-- Auto Rock Tab
+-- ================================
+local autoRockTab = window:AddTab("Auto Rock")
+local autoRockFolder = autoRockTab:AddFolder("Farm Rocks")
+
+function gettool()
+	for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		if v.Name == "Punch" and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+			game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+		end
+	end
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "leftHand")
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "rightHand")
+end
+
+local rocks = {
+    {name="Tiny Rock", req=0, id="Tiny Island Rock"},
+    {name="Starter Rock", req=100, id="Starter Island Rock"},
+    {name="Legend Beach Rock", req=5000, id="Legend Beach Rock"},
+    {name="Frozen Rock", req=150000, id="Frost Gym Rock"},
+    {name="Mythical Rock", req=400000, id="Mythical Gym Rock"},
+    {name="Eternal Rock", req=750000, id="Eternal Gym Rock"},
+    {name="Legend Rock", req=1000000, id="Legend Gym Rock"},
+    {name="Muscle King Rock", req=5000000, id="Muscle King Gym Rock"},
+    {name="Jungle Rock", req=10000000, id="Ancient Jungle Rock"},
+}
+
+for _, rock in ipairs(rocks) do
+    autoRockFolder:AddSwitch(rock.name, function(Value)
+        selectrock = rock.id
+        getgenv().autoFarm = Value
+        task.spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if not getgenv().autoFarm then break end
+                if game:GetService("Players").LocalPlayer.Durability.Value >= rock.req then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == rock.req 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end
+
 local CreditsTab = window:AddTab("Créditos")
 
 CreditsTab:AddLabel("Desarrollado por itsbleedingyz").TextSize = 25
@@ -1738,6 +1848,61 @@ end)
 -- ================================
 -- Credits Tab
 -- ================================
+
+-- ================================
+-- Auto Rock Tab
+-- ================================
+local autoRockTab = window:AddTab("Auto Rock")
+local autoRockFolder = autoRockTab:AddFolder("Farm Rocks")
+
+function gettool()
+	for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		if v.Name == "Punch" and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+			game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+		end
+	end
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "leftHand")
+	game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "rightHand")
+end
+
+local rocks = {
+    {name="Tiny Rock", req=0, id="Tiny Island Rock"},
+    {name="Starter Rock", req=100, id="Starter Island Rock"},
+    {name="Legend Beach Rock", req=5000, id="Legend Beach Rock"},
+    {name="Frozen Rock", req=150000, id="Frost Gym Rock"},
+    {name="Mythical Rock", req=400000, id="Mythical Gym Rock"},
+    {name="Eternal Rock", req=750000, id="Eternal Gym Rock"},
+    {name="Legend Rock", req=1000000, id="Legend Gym Rock"},
+    {name="Muscle King Rock", req=5000000, id="Muscle King Gym Rock"},
+    {name="Jungle Rock", req=10000000, id="Ancient Jungle Rock"},
+}
+
+for _, rock in ipairs(rocks) do
+    autoRockFolder:AddSwitch(rock.name, function(Value)
+        selectrock = rock.id
+        getgenv().autoFarm = Value
+        task.spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if not getgenv().autoFarm then break end
+                if game:GetService("Players").LocalPlayer.Durability.Value >= rock.req then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == rock.req 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") 
+                           and game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end
+
 local CreditsTab = window:AddTab("Créditos")
 
 CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
