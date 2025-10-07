@@ -1919,6 +1919,7 @@ Credits:AddButton("Join my Discord server", function()
         Duration = 5;
     })
 end)
+
 --// Funções para abrir
 local function openEnglish()
     screenGui:Destroy()
