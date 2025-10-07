@@ -1903,14 +1903,22 @@ for _, rock in ipairs(rocks) do
     end)
 end
 
-local CreditsTab = window:AddTab("Créditos")
+local Credits = window:AddTab("Credits")
 
-CreditsTab:AddLabel("Desenvolvido por Snow").TextSize = 25
-CreditsTab:AddLabel("Contato:").TextSize = 20
-CreditsTab:AddLabel("Discord: matheustxx").TextSize = 20
-CreditsTab:AddLabel("youtube: snow01").TextSize = 20
-]====]
+Credits:AddLabel("paid version")
+Credits:AddLabel("Script Made by username:")
+Credits:AddLabel("snow😼")
+Credits:AddLabel("I hope you like the script, for bugs or suggestions on my discord server")
 
+-- Botão para o servidor do Discord
+Credits:AddButton("Join my Discord server", function()
+    setclipboard("https://discord.gg/Kw5avTFZ8A") -- copia o link para a área de transferência
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Discord";
+        Text = "Link copiado! Cole no navegador para entrar no servidor.";
+        Duration = 5;
+    })
+end)
 --// Funções para abrir
 local function openEnglish()
     screenGui:Destroy()
